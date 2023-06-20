@@ -1,0 +1,88 @@
+
+
+
+
+body {
+    background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2016%2F01%2F168595-space-stars.jpg&f=1&nofb=1&ipt=affb0a0edc753f767e4cd012f93bfac15c035b98019ec9a0cce7e461ce11419f&ipo=images);
+    color: limegreen;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.game {
+    /* border: solid white; */
+    display: flex;
+    justify-content: center;
+}
+
+/* GRAPHICS */
+.battleBox {
+    border: thick double whitesmoke;
+    border-radius: 5px;
+    width: 100%;
+    height:50vh;
+    display: flex;
+    align-items: center;
+    margin: 2px;
+}
+
+.enemyBox, .heroBox {
+    margin: 2px;
+    width: 50%;
+}
+
+.hero, .enemy {
+    width: 50%;
+    height: 50%;
+    rotate: 90deg;
+}
+
+
+/* STATS */
+.statBox {
+    border: thick double whitesmoke;
+    border-radius: 5px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    width: 15%;
+} 
+
+.shipName {
+    margin: 1em;
+}
+
+.shipStat {
+    margin: 1em;
+}
+
+/* DIALOGUE */
+
+.dialogueBox {
+    border: thick double whitesmoke;
+    border-radius: 5px;
+    background-color: black;
+    margin: 3px;
+}
+/* ACTIONS */
+.actionBox {
+    /* border: solid white; */
+    border-radius: 1%;
+    margin: 3px;
+    height:5vh;
+}
+
+.action {
+    border: thick double whitesmoke;
+    border-radius: 1em;
+    background-color: black;
+    color: limegreen;
+    margin: 1em;
+    padding: 1em;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+
+
+
