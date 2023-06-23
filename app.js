@@ -1,98 +1,271 @@
-//https://perscholas.instructure.com/courses/1464/assignments/291113
+//----------------------------------------------
+//QUERY SELECTORS
+const shipHull = document.querySelector(".shipHull");
+const shipFP = document.querySelector(".shipFP");
+const shipAcc = document.querySelector(".shipAcc");
 
-//Need to create statblock for Ship
-let ship = {
+const enemyName = document.querySelector(".enemyName")
+const enemyHull = document.querySelector(".enemyHull");
+const enemyFP = document.querySelector(".enemyFP");
+const enemyAcc = document.querySelector(".enemyAcc");
+
+const dialogue = document.querySelector(".dialogue")
+const console = document.querySelector(".console")
+
+//----------------------------------------------
+//Text Display
+const roundDisplay = () => 
+{
+    shipHull.innerHTML = ship.hull;
+    shipFP.innerHTML = ship.firepower;
+    shipAcc.innerHTML = ship.accuracy;
+
+    enemyName.innerHTML = currentEnemy.name
+    enemyHull.innerHTML = currentEnemy.hull;
+    enemyFP.innerHTML = currentEnemy.firepower;
+    enemyAcc.innerHTML = currentEnemy.accuracy;
+    dialogue.innerHTML = `Battlestations! ${currentEnemy.name} approaches.`;
+}
+
+//----------------------------------------------
+//SHIP STATS
+let ship = 
+{
+    name: "USS ION",
     hull: 20,
     firepower: 5,
     accuracy: 70,
 }
 
-//Need to create randomized statblocks for Alien Ship
-
-function randomStat(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min);
-}
-
-let enemy = {
+//----------------------------------------------
+//ENEMY STATS
+let enemy1 = 
+{   
+    name: "Balthraxian Warship",
     hull: randomStat(3, 6),
     firepower: randomStat(2, 4),
     accuracy: randomStat(60, 80)
 }
 
-//let currentHull = ship.hull -= enemy.firepower
+let enemy2 = 
+{   
+    name: "Balthraxian Battleship",
+    hull: randomStat(3, 6),
+    firepower: randomStat(2, 4),
+    accuracy: randomStat(60, 80)
+}
 
-//Damage Check against self
-console.log("Hull is " + ship.hull);
+let enemy3 = 
+{   
+    name: "Balthraxian Interceptor",
+    hull: randomStat(3, 6),
+    firepower: randomStat(2, 4),
+    accuracy: randomStat(60, 80)
+}
 
-    if (randomStat(1, 100) < enemy.accuracy)
+let enemy4 = 
+{   
+    name: "Balthraxian Corvette",
+    hull: randomStat(3, 6),
+    firepower: randomStat(2, 4),
+    accuracy: randomStat(60, 80)
+}
+
+let enemy5 = 
+{   
+    name: "Balthraxian Destroyer",
+    hull: randomStat(3, 6),
+    firepower: randomStat(2, 4),
+    accuracy: randomStat(60, 80)
+}
+
+let enemy6 = 
+{   
+    name: "Balthraxian Battlecruiser",
+    hull: randomStat(3, 6),
+    firepower: randomStat(2, 4),
+    accuracy: randomStat(60, 80)
+}
+
+//----------------------------------------------
+//ENEMY ARRAY
+let enemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6];
+let currentEnemy = enemies[0];
+
+//----------------------------------------------
+//TRACKERS
+let counter = 0;
+let score = 0
+let turn = 0
+
+//----------------------------------------------
+//FUNCTIONS
+
+//Number Randomizer
+function randomStat(min, max) 
+{
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min);
+}
+
+//----------------------------------------------
+//WIN CONDITION
+const win = () =>
+{
+    if(score === 6)
     {
-        ship.hull -= enemy.firepower;
-        console.log("You are hit and have this much Hull remaining: " + ship.hull)
-    }else
-    {
-        console.log("You dodged!");
+        // console.log("You win!");
+        dialogue.innerHTML ="You win!";
     }
-
-    if (ship.hull <= 0)
+    else 
     {
-    console.log("You have been destroyed!");
+        // console.log("Enemies still remain!");
+        dialogue.innerHTML ="Enemies still remain!";
     }
+}
 
-    if (ship.hull > 0)
+//----------------------------------------------
+//SHIP LIFE CHECK | THIS WORKS SO FAR
+let currentHull = ship.hull;
+const checkHull = () => 
+{
+    // console.log(`Current Hull is ${ship.hull}`);
+    console.innerHTML = `Current Hull is ${ship.hull}`;
+    if(ship.hull <= 0)
     {
-    console.log("Your ship holds steady!");
+    // console.log("You have been destroyed!")
+    console.innerHTML ="You have been destroyed!"
     }
+    else
+    {
+    // console.log("Your ship holds steady!");
+    console.innerHTML ="Your ship holds steady!";
+    decision()
+    }
+}
 
-//For loop
-//Press Engage and initiate function
-//Function will have ship attack, then enemy attack
-//Check HP of ship and enemy, if ship hp = 0, game over, if enemy hp = 0, go to next enemy
-//repeat until you win or ship hp = 0
+//----------------------------------------------
+//ENEMY LIFE CHECK |
+let currentEnemyHull = currentEnemy.hull;
+const checkenemyHull = () =>
+{
+    // console.log(`Remaining Enemy Hull Strength is ${currentEnemy.hull}`);
+    console.innerHTML =`Remaining Enemy Hull Strength is ${currentEnemy.hull}`;
+    if (currentEnemy.hull <= 0)
+    {
+        counter++;
+        score++;
+        // console.log("Array Counter: ",counter);
+        currentEnemy = enemies[counter]
+        // console.log("Your score is now:", score);
+        win();
+        // console.log(currentEnemy.name + " approaches!");
+        enemyTurn();
+        console.innerHTML = "===END TURN=="
+    }
+    else {
+        enemyTurn();
+    }
+    return "===End Turn==="
+}
 
-//Accuracy and Damage Check against enemy 
+//----------------------------------------------
+//CURRENT ENEMY ATTACKS
+const enemyTurn = () => 
+{
+    if (randomStat(1, 100) < currentEnemy.accuracy)
+{      
+        turn++;
+        // console.log(`===Turn: ${turn}===`);
+        console.innerHTML =`===Turn: ${turn}===`;
+        // console.log(`We have a Hull Strength of ${ship.hull}`);
+        console.innerHTML =`We have a Hull Strength of ${ship.hull}`;
+        ship.hull -= currentEnemy.firepower;
+        // console.log(`We are hit for ${currentEnemy.firepower} damage and have ${ship.hull} Hull remaining.`)
+        console.innerHTML =`We are hit for ${currentEnemy.firepower} damage and have ${ship.hull} Hull remaining.`
+        console.innerHTML = "===END TURN=="
+        decision()
+}
+else
+{
+        turn++;
+        // console.log(`===Turn: ${turn}===`)
+        console.innerHTML =`===Turn: ${turn}===`
+        // console.log("We managed to avoid the hit!");
+        console.innerHTML ="We managed to avoid the hit!";
+        console.innerHTML = "===END TURN=="
+        decision()
+    }
+    return "===End Turn==="
+}
+//----------------------------------------------
+//SHIP ATTACKS
+const heroTurn = () => 
+{
+    roundDisplay()
+    if (randomStat(1, 100) < ship.accuracy)
+{      
+        turn++;
+        console.innerHTML ="We are engaging the enemy!";
+        // console.log("We are engaging the enemy!");
 
-// console.log("Hull is " + enemy.hull);
+        console.innerHTML =`===Turn: ${turn}===`;
+        // console.log(`===Turn: ${turn}===`);
+        
+        console.innerHTML =`The enemy has a Hull Strength of ${currentEnemy.hull}`;
+        // console.log(`The enemy has a Hull Strength of ${currentEnemy.hull}`);
 
-//     if (randomStat(1, 100) < ship.accuracy)
-// {
-//         enemy.hull -= ship.firepower;
-//         console.log("The enemy is hit and has this much Hull remaining: " + enemy.hull)
-//     }else
-// {
-//         console.log("The enemy dodged!");
-//     }
+        currentEnemy.hull -= ship.firepower;
 
-// if (enemy.hull <= 0)
-// {
-//     console.log("The enemy is destroyed");
-// }
+        // console.log(`The enemy is hit for ${ship.firepower} damage and has ${currentEnemy.hull} Hull remaining.`);
+        console.innerHTML =`The enemy is hit for ${ship.firepower} damage and has ${currentEnemy.hull} Hull remaining.`;
+        console.innerHTML = "===END TURN=="
+        checkenemyHull()
+}
+else
+{
+        turn++;
+        // console.log(`===Turn: ${turn}===`);
+        console.innerHTML =`===Turn: ${turn}===`;
+        // console.log("The enemy managed to avoid the hit!");
+        console.innerHTML ="The enemy managed to avoid the hit!";
+        console.innerHTML = "===END TURN=="
+        enemyTurn()
+    }
+    return "===End Turn==="
+}
 
-// if (enemy.hull > 0)
-// {
-//     console.log("The enemy still remains.");
-// }
+//----------------------------------------------
+//RETREAT
+const decision = () => 
+{
+    let choice = prompt("Continue?"); 
+    if(choice === "yes")
+    {
 
+        dialogue.innerHTML ="We shall press on!";
+        heroTurn()
+        // console.log("We shall press on!");
 
-//Need to create For Loop for Engage! button
+    }
+    else
+    {
+        dialogue.innerHTML = "Game Over! You have failed!";
+        // console.log("All is lost!");
+    }
+}
 
-//Dialgoue Box should have text:
+//----------------------------------------------
+//ENGAGE THE ENEMY!!!
+const engage = () =>
+{
+    heroTurn();
+}
 
-//An enemy approaches! What will you do?
-
-//Pressing Retreat has box say:
-
-//Game Over! You have retreated!
-
-//Pressing Engage! has box say:
-
-//You engage the enemy and begin the loop. 
-//The loop ends when either the enemy or player is reduced to 0 Hull.
-
-//If Player Hull is reduced to 0, and dialogue says: "Your ship has been destroyed!"
-
-//If Enemy Hull is reduced to 0, the alien is removed from the list, and player is prompted with inital choice
-//When list is empty, player is given dialogue "You have saved the planet!"
-
-//Actions will print to console until I figure out a better way to make it turn based?
+//Hero Attacks
+//Check if Enemy still is alive
+//If enemy is still alive -- Enemy Attacks
+//If enemy is dead, Make a new decision to continue
+//make new enemy, Enemy Attacks
+//Repeat until someone is dead

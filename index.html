@@ -17,9 +17,9 @@
                     <!-- Display Stats Here -->
         <div class="statBox">
             <div class="shipName">USS Ion</div>
-            <div class="shipStat">Hull</div>
-            <div class="shipStat">Firepower</div>
-            <div class="shipStat">Accuracy</div>
+            <div class="shipStat">Hull: <p class="shipHull"></p></div>
+            <div class="shipStat">Firepower:<p class="shipFP"></p></div>
+            <div class="shipStat">Accuracy: <p class="shipAcc"></p></div>
         </div>
 
                     <!-- Display Battle Here -->
@@ -29,23 +29,27 @@
         </div>
 
         <div class="statBox">
-            <div class="shipName">Balthraxian Ship</div>
-            <div class="shipStat">Hull</div>
-            <div class="shipStat">Firepower</div>
-            <div class="shipStat">Accuracy</div>
+            <div class="shipName">Enemy:<p class="enemyName"></p></div>
+            <div class="shipStat">Hull: <p class="enemyHull"></p></div>
+            <div class="shipStat">Firepower:<p class="enemyFP"></p></div>
+            <div class="shipStat">Accuracy: <p class="enemyAcc"></p></div>
         </div>
     </div>
     </div>
 
 
     <!-- Display Actions Here -->
+    <div class="actionBox">
+        <button class="action" onclick="engage()">Engage</button>
+        <button class="action" onclick="decision()">Retreat</button>
+</div>
+
     <div class="dialogueBox">
         <p class="dialogue">All your base are belong to us</p>
     </div>
-    <div class="actionBox">
-
-                <button class="action">Engage</button>
-                <button class="action">Retreat</button>
+    <div class="consoleBox">
+        <p class="console"></p>
+    </div>
 
         <script src="app.js" async defer></script>
     </body>
